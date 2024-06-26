@@ -1,6 +1,7 @@
 
 using Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using PersonalProtfolio;
 
 
 [ApiController]
@@ -23,7 +24,22 @@ public class ProyectController : ControllerBase
     [HttpGet]
     public ActionResult Get()
     {
-        return Ok(_repo.GetAll());
+        var proyects = _repo.GetAll();
+        List<ProyectToReturn> proyectsToReturn = new ();
+        foreach (var proyect in proyects)
+        {
+            proyectsToReturn.Add(new ProyectToReturn()
+            {
+                Id = proyect.Id,
+                Title = proyect.Title,
+                Summary = proyect.Summary,
+                Content = proyect.Content,
+                Technology = proyect.Technology,
+                ImagePath = proyect.ImagePath,
+                TechnologyEnum = proyect.TechnologyEnum
+            });
+        }
+        return Ok(proyectsToReturn);
     }
 
     [HttpPost]
@@ -37,7 +53,9 @@ public class ProyectController : ControllerBase
             ImagePath = body.ImagePath,
             Summary = body.Summary,
             Title = body.Title,
-            Technology = body.Technology
+            Technology = body.Technology,
+            TechnologyEnum = body.TechnologyEnum
+
         }; 
         return Ok(_repo.AddProject(newProject));
     }

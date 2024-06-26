@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PersonalProtfolio;
 
 public class Proyect
 {
@@ -17,6 +18,8 @@ public class Proyect
     public string? ImagePath {get;set;}
     
     public string State {get; set;} = "Active";
+// cuando me pasen por el body la tecnologia como un numero entero lo convierto en un enum 
+    public TechnologiesEnum TechnologyEnum { get; set; } = TechnologiesEnum.JavaScript;
 
 
     }
